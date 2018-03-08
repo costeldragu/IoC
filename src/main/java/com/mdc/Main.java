@@ -1,14 +1,19 @@
 package com.mdc;
 
+import com.mdc.annotation.Component;
 import com.mdc.annotation.Dependecy;
 import com.mdc.service.UserService;
+
 import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
+import org.reflections.scanners.FieldAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.Set;
+
 
 public class Main {
 
@@ -26,14 +31,15 @@ public class Main {
 
     public void start() {
 
-        Reflections reflections = new Reflections(
-                new ConfigurationBuilder()
-                        .setUrls(ClasspathHelper.forJavaClassPath())
-        );
+        LOGGER.debug("{}");
 
-        Set<Class<? extends Object>> subTypes = reflections.getSubTypesOf(Object.class);
+        Reflections reflections = new Reflections("com.mdc",new FieldAnnotationsScanner(),new TypeAnnotationsScanner(),new SubTypesScanner());
 
-        LOGGER.debug("{}",subTypes);
+        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Component.class);
+        Set<Field> ids = reflections.getFieldsAnnotatedWith(Dependecy.class);
+
+        LOGGER.debug("{}", annotated);
+        LOGGER.debug("{}", ids);
 
         LOGGER.debug("debug:Program started");
         LOGGER.info("info:Program started");
