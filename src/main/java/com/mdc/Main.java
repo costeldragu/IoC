@@ -2,6 +2,7 @@ package com.mdc;
 
 import com.mdc.annotation.Component;
 import com.mdc.annotation.Dependecy;
+import com.mdc.di.ApplicationContextFactory;
 import com.mdc.service.UserService;
 
 import org.reflections.Reflections;
@@ -33,16 +34,18 @@ public class Main {
 
         LOGGER.debug("{}");
 
-        Reflections reflections = new Reflections("com.mdc",new FieldAnnotationsScanner(),new TypeAnnotationsScanner(),new SubTypesScanner());
+        new ApplicationContextFactory("com.mdc");
 
-        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Component.class);
-        Set<Field> ids = reflections.getFieldsAnnotatedWith(Dependecy.class);
-
-        LOGGER.debug("{}", annotated);
-        LOGGER.debug("{}", ids);
-
-        LOGGER.debug("debug:Program started");
-        LOGGER.info("info:Program started");
+//        Reflections reflections = new Reflections("com.mdc",new FieldAnnotationsScanner(),new TypeAnnotationsScanner(),new SubTypesScanner());
+//
+//        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Component.class);
+//        Set<Field> ids = reflections.getFieldsAnnotatedWith(Dependecy.class);
+//
+//        LOGGER.debug("{}", annotated);
+//        LOGGER.debug("{}", ids);
+//
+//        LOGGER.debug("debug:Program started");
+//        LOGGER.info("info:Program started");
     }
 
 
