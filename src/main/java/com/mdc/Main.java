@@ -12,14 +12,13 @@ public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     @Dependecy
-    private UserService userService;
+    public UserService userService;
 
-
-    public static void main(String... arg) {
+    public static void main(String... arg) throws IllegalAccessException, InstantiationException {
         new Main().start();
     }
 
-    public void start() {
+    public void start() throws IllegalAccessException, InstantiationException {
         new ApplicationContextFactory("com.mdc");
     }
 
